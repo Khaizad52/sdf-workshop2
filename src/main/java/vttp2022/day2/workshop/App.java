@@ -1,7 +1,5 @@
 package vttp2022.day2.workshop;
 
-import vttp2022.day2.BankAccount;
-
 public class App 
 {
     public static void main( String[] args )

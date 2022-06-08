@@ -1,4 +1,4 @@
-package vttp2022.day2;
+package vttp2022.day2.workshop;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -96,7 +96,7 @@ public class BankAccount {
             if(this.isClosed()){
                 throw new IllegalArgumentException("Account closed already");
             }
-            this.balance = this.balance + withdrawAmtF.floatValue();
+            this.balance = this.balance - withdrawAmtF.floatValue();
 
             //construct the transaction history event log
             StringBuilder txnStrbld = new StringBuilder();
