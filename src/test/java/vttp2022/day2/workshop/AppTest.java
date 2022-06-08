@@ -2,11 +2,9 @@ package vttp2022.day2.workshop;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest 
 {
     /**
@@ -27,12 +25,29 @@ public class AppTest
     }
 
     @Test
-    public void testFixedDepositAccount(){
+    public void testFixedDepositAccountChangeInterestAndDuration(){
         try{
+            FixedDepositAccount fdAcc =
+            new FixedDepositAccount("My FD acc", 10000);
+
+            System.out.println("1. Fixed Deposit Acc balance >" + fdAcc.getBalance());
+            fdAcc.setDurationAndInterest(4, 12);
+            System.out.println("2. Fixed Deposit Acc balance >" + fdAcc.getBalance());
+            fdAcc.setDurationAndInterest(5, 6);
 
         }catch(IllegalArgumentException e){
-            assertTrue("Only can set duration amd interest once".contains(e.getMessage()))
+            assertTrue("Only can set duration amd interest once".contains(e.getMessage()));
 
         }
+    }
+
+    @Test
+    public void testFixedDepositAccountchangeInterestAndDurationOnce(){
+        FixedDepositAccount fdAcc = new FixedDepositAccount("My FD acc", 10000);
+
+        System.out.println("1. Fixed Deposit Acc balance > " + fdAcc.getBalance());
+        fdAcc.setDurationAndInterest(4, 12);
+        System.out.println("2. Fixed Deposit Acc balance > " + fdAcc.getBalance());
+        assertEquals(12, fdAcc.getDuration(), .1);
     }
 }

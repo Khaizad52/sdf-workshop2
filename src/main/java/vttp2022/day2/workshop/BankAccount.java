@@ -1,7 +1,8 @@
 package vttp2022.day2.workshop;
 
+//package to get local date & time
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+//package for framework and collections
 import java.util.LinkedList;
 import java.util.List;
 //package to generate uuid
@@ -10,13 +11,14 @@ import java.util.UUID;
 
 public class BankAccount {
     //bank account
-    private String name ="";
+    private final String name;
 
     
     //this is a generated account id from java util UUID class
-    private String acctId = UUID.randomUUID()
+    private final String acctId = UUID.randomUUID()
                                 .toString()
                                 .substring(0, 8);
+
     //holds the bank acc balance
     private float balance = 0f;
 
@@ -45,15 +47,11 @@ public class BankAccount {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+
     public String getAcctId() {
         return acctId;
     }
-    public void setAcctId(String acctId) {
-        this.acctId = acctId;
-    }
+
     public float getBalance() {
         return balance;
     }
@@ -84,7 +82,10 @@ public class BankAccount {
     public void setAccountClosingDate(LocalDateTime accountClosingDate) {
         this.accountClosingDate = accountClosingDate;
     }
+
+    //Withdraw body with a return value
     public float withdraw(String withdrawAmt){
+        //need this line to get a return value
         Float withdrawAmtF = null;
         try{
              withdrawAmtF = Float.parseFloat(withdrawAmt);
@@ -96,6 +97,10 @@ public class BankAccount {
             if(this.isClosed()){
                 throw new IllegalArgumentException("Account closed already");
             }
+            if(withdrawAmtF.floatValue() > this.balance){
+                throw new IllegalArgumentException("Not enough leh");
+            }
+
             this.balance = this.balance - withdrawAmtF.floatValue();
 
             //construct the transaction history event log
@@ -117,10 +122,11 @@ public class BankAccount {
         return withdrawAmtF;
 
     }
+
+    //Deposit body without a return value
     public void deposit(String depositAmt){
-        Float depositAmtF = null;
         try{
-            depositAmtF = Float.parseFloat(depositAmt);
+            Float depositAmtF = Float.parseFloat(depositAmt);
 
             if (depositAmtF.floatValue() <= 0){
                 throw new IllegalArgumentException("Deposit amount cannot be negative or zero");
